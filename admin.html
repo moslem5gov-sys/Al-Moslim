@@ -1,224 +1,189 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم المسلم</title>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f3f7f3;
-      color: #173d2c;
-    }
-
-    .container {
-      max-width: 650px;
-      margin: 35px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px #00000012;
-    }
-
-    h1, h2 { text-align: center; }
-
-    input, textarea, button {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    input, textarea {
-      border: 1px solid #ccc;
-    }
-
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    button {
-      border: none;
-      background: #176b45;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover { background: #105536; }
-
-    .delete { background: #b83232; }
-    .secondary { background: #555; }
-
-    .hidden { display: none; }
-
-    .item {
-      border: 1px solid #ddd;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 9px;
-      overflow-wrap: anywhere;
-    }
-
-    #message {
-      text-align: center;
-      margin: 12px 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AL-Moslim | Admin</title>
+<style>
+body{font-family:Arial;background:#f1f5f1;margin:0;padding:20px;color:#17432e}
+.box{max-width:600px;margin:30px auto;background:white;padding:22px;border-radius:15px}
+h2{text-align:center}
+input,textarea,button{box-sizing:border-box;width:100%;padding:13px;margin:8px 0;border-radius:8px;font-size:16px}
+input,textarea{border:1px solid #ccc}
+textarea{min-height:110px}
+button{background:#176b45;color:white;border:0;font-weight:bold}
+.delete{background:#b83232}
+.hidden{display:none}
+.item{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
+#message{overflow-wrap:anywhere;text-align:center}
+</style>
 </head>
-
 <body>
 
-<div class="container">
-  <h1>🕌 AL-Moslim</h1>
-  <h2>لوحة التحكم</h2>
+<div class="box">
+<h2>🕌 AL-Moslim</h2>
+<h2>لوحة تحكم المدير</h2>
 
-  <div id="login">
-    <h3>تسجيل دخول المدير</h3>
-    <input id="email" type="email" placeholder="البريد الإلكتروني">
-    <input id="password" type="password" placeholder="كلمة المرور">
-    <button id="loginBtn">دخول</button>
-  </div>
+<div id="login">
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="password" type="password" placeholder="كلمة المرور">
+<button id="loginBtn">دخول</button>
+</div>
 
-  <div id="dashboard" class="hidden">
-    <h3>إدارة محتوى الموقع</h3>
+<div id="dashboard" class="hidden">
+<h3>إضافة أو تعديل محتوى</h3>
+<input id="docId" placeholder="معرّف المحتوى مثل home">
+<input id="title" placeholder="العنوان">
+<textarea id="content" placeholder="المحتوى"></textarea>
+<button id="saveBtn">حفظ المحتوى</button>
+<button id="clearBtn">تفريغ الخانات</button>
+<h3>المحتويات الموجودة</h3>
+<div id="items"></div>
+<button id="logoutBtn" class="delete">تسجيل الخروج</button>
+</div>
 
-    <input id="docId" placeholder="معرّف المحتوى (مثلاً: home)">
-    <input id="title" placeholder="العنوان">
-    <textarea id="content" placeholder="اكتب المحتوى هنا"></textarea>
-
-    <button id="saveBtn">حفظ المحتوى</button>
-    <button id="clearBtn" class="secondary">تفريغ الخانات</button>
-
-    <h3>المحتويات المحفوظة</h3>
-    <div id="items"></div>
-
-    <button id="logoutBtn" class="delete">تسجيل الخروج</button>
-  </div>
-
-  <p id="message"></p>
+<p id="message"></p>
 </div>
 
 <script type="module">
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  import {
-    getFirestore,
-    collection,
-    getDocs,
-    doc,
-    setDoc,
-    deleteDoc
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+getFirestore,
+collection,
+getDocs,
+doc,
+setDoc,
+deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDPh3WscZj2QGxDBGfqDBJtJsYw_JZ_gxA",
-    authDomain: "al-muslim-28cf7.firebaseapp.com",
-    projectId: "al-muslim-28cf7",
-    storageBucket: "al-muslim-28cf7.firebasestorage.app",
-    messagingSenderId: "673582048508",
-    appId: "1:673582048508:web:b732dbbb07a0e4f7486379"
-  };
+const firebaseConfig = {
+apiKey: "AIzaSyDPh3WscZj2QGxDBGfqDBJtJsYw_JZ_gxA",
+authDomain: "al-muslim-28cf7.firebaseapp.com",
+projectId: "al-muslim-28cf7",
+storageBucket: "al-muslim-28cf7.firebasestorage.app",
+messagingSenderId: "673582048508",
+appId: "1:673582048508:web:b732dbbb07a0e4f7486379"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  const $ = id => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-  function message(text) {
-    $("message").textContent = text;
-  }
+function showMessage(text){
+$("message").textContent = text;
+}
 
-  $("loginBtn").onclick = async () => {
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        $("email").value.trim(),
-        $("password").value
-      );
-      message("تم تسجيل الدخول بنجاح");
-    } catch (error) {
-      message("تعذّر تسجيل الدخول: " + error.message);
-    }
-  };
+$("loginBtn").addEventListener("click", async () => {
+showMessage("جاري تسجيل الدخول...");
+try {
+await signInWithEmailAndPassword(
+auth,
+$("email").value.trim(),
+$("password").value
+);
+showMessage("تم تسجيل الدخول بنجاح");
+} catch(error) {
+showMessage("خطأ في الدخول: " + error.message);
+}
+});
 
-  onAuthStateChanged(auth, user => {
-    $("login").classList.toggle("hidden", !!user);
-    $("dashboard").classList.toggle("hidden", !user);
+onAuthStateChanged(auth, user => {
+$("login").classList.toggle("hidden", !!user);
+$("dashboard").classList.toggle("hidden", !user);
+if(user) loadContent();
+});
 
-    if (user) loadContent();
-  });
+async function loadContent(){
+$("items").textContent = "جاري التحميل...";
+try {
+const result = await getDocs(collection(db,"site_content"));
+$("items").innerHTML = "";
 
-  async function loadContent() {
-    $("items").innerHTML = "جاري تحميل المحتوى...";
+result.forEach(item => {
+const data = item.data();
+const box = document.createElement("div");
+box.className = "item";
 
-    try {
-      const snapshot = await getDocs(collection(db, "site_content"));
-      $("items").innerHTML = "";
+const title = document.createElement("h3");
+title.textContent = data.title || item.id;
 
-      snapshot.forEach(documentSnapshot => {
-        const data = documentSnapshot.data();
+const content = document.createElement("p");
+content.textContent = data.content || "";
 
-        const box = document.createElement("div");
-        box.className = "item";
+const edit = document.createElement("button");
+edit.textContent = "تعديل";
+edit.onclick = () => {
+$("docId").value = item.id;
+$("title").value = data.title || "";
+$("content").value = data.content || "";
+};
 
-        const heading = document.createElement("h4");
-        heading.textContent = data.title || documentSnapshot.id;
+const remove = document.createElement("button");
+remove.textContent = "حذف";
+remove.className = "delete";
+remove.onclick = async () => {
+if(confirm("هل تريد حذف هذا المحتوى؟")){
+try {
+await deleteDoc(doc(db,"site_content",item.id));
+showMessage("تم الحذف");
+loadContent();
+} catch(error) {
+showMessage("خطأ: " + error.message);
+}
+}
+};
 
-        const description = document.createElement("p");
-        description.textContent = data.content || "";
+box.append(title,content,edit,remove);
+$("items").appendChild(box);
+});
 
-        const edit = document.createElement("button");
-        edit.textContent = "تعديل";
-        edit.onclick = () => {
-          $("docId").value = documentSnapshot.id;
-          $("title").value = data.title || "";
-          $("content").value = data.content || "";
-          window.scrollTo(0, 0);
-        };
+if(result.empty) $("items").textContent = "لا يوجد محتوى.";
 
-        const remove = document.createElement("button");
-        remove.textContent = "حذف";
-        remove.className = "delete";
-        remove.onclick = async () => {
-          if (!confirm("هل أنت متأكد من حذف هذا المحتوى؟")) return;
+} catch(error) {
+showMessage("خطأ في تحميل المحتوى: " + error.message);
+}
+}
 
-          try {
-            await deleteDoc(doc(db, "site_content", documentSnapshot.id));
-            message("تم الحذف");
-            loadContent();
-          } catch (error) {
-            message("خطأ: " + error.message);
-          }
-        };
+$("saveBtn").addEventListener("click", async () => {
+const id = $("docId").value.trim();
+if(!id){
+showMessage("اكتب معرّف المحتوى أولاً");
+return;
+}
 
-        box.append(heading, description, edit, remove);
-        $("items").appendChild(box);
-      });
+try {
+await setDoc(doc(db,"site_content",id),{
+title: $("title").value.trim(),
+content: $("content").value.trim()
+});
+showMessage("تم حفظ المحتوى بنجاح");
+$("docId").value = "";
+$("title").value = "";
+$("content").value = "";
+loadContent();
+} catch(error) {
+showMessage("خطأ في الحفظ: " + error.message);
+}
+});
 
-      if (!snapshot.size) {
-        $("items").textContent = "لا يوجد محتوى محفوظ.";
-      }
+$("clearBtn").onclick = () => {
+$("docId").value = "";
+$("title").value = "";
+$("content").value = "";
+};
 
-    } catch (error) {
-      message("خطأ في تحميل المحتوى: " + error.message);
-    }
-  }
+$("logoutBtn").onclick = () => signOut(auth);
+</script>
 
-  $("saveBtn").onclick =
+</body>
+</html>
