@@ -1,1 +1,70 @@
-
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="موقع المسلم - رفيقك في طريق الإيمان. القرآن الكريم والأذكار ومواقيت الصلاة.">
+<meta name="theme-color" content="#123b2d">
+<title>موقع المسلم | MOSLIM</title>
+<style>
+:root{--green:#123b2d;--green2:#1c5942;--gold:#c9a85b;--cream:#f7f7f2;--ink:#1c2822;--muted:#68766e;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.8}
+header{background:linear-gradient(120deg,#0d2d23,#1c5942);color:white;padding:18px max(5%,calc((100% - 1120px)/2));}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:25px;font-weight:800;letter-spacing:.3px}.brand small{display:block;color:#e7d8ae;font-size:12px;font-weight:400}
+select,button{font:inherit;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}header select{background:#fff;color:var(--green)}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{color:#fff;text-decoration:none;padding:7px 12px;border-radius:9px;font-size:14px}nav a:hover{background:#ffffff20}
+.hero{max-width:1120px;margin:28px auto;padding:45px 24px;text-align:center;background:linear-gradient(135deg,#e9efe8,#fff);border:1px solid #e0e7df;border-radius:22px}
+.hero .bism{color:var(--green2);font-size:20px}.hero h1{font-size:clamp(30px,5vw,48px);color:var(--green);margin:8px 0}.hero p{color:var(--muted);margin:5px}
+main{max-width:1120px;margin:0 auto;padding:0 18px 50px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:white;border:1px solid #e8ebe5;border-radius:16px;padding:20px;box-shadow:0 5px 18px #173b2b0a}
+.card h2,.section-title{color:var(--green);margin-top:0}.card .icon{font-size:28px}.muted{color:var(--muted);font-size:14px}
+section{margin:28px 0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.action{background:var(--green);color:#fff}.action:hover{background:var(--green2)}.soft{background:#edf3ed;color:var(--green)}
+#surahList{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.surah{background:white;border:1px solid #e5e9e2;border-radius:12px;padding:12px;text-align:right;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+.surah:hover{border-color:var(--gold)}.prayers{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.prayer{background:#f0f5ef;border-radius:12px;padding:12px;text-align:center}.prayer b{display:block;color:var(--green)}
+input{font:inherit;padding:10px;border:1px solid #dce3dc;border-radius:9px;max-width:100%}
+#quranText{white-space:pre-line;line-height:2.4;font-size:20px;color:#254a38}
+footer{text-align:center;background:#102b22;color:#e9eee9;padding:25px 15px}footer span{color:#e7d8ae}
+hr{border:0;border-top:1px solid #e8ece6;margin:18px 0}
+@media(max-width:600px){.hero{margin:16px 12px;padding:30px 15px}nav{gap:2px}nav a{padding:6px 8px;font-size:13px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div class="brand">موقع المسلم <small>MOSLIM · رفيقك في طريق الإيمان</small></div>
+ <select id="language" aria-label="Language"><option value="ar">العربية</option><option value="fr">Français</option><option value="en">English</option></select></div>
+ <nav><a href="#home" data-i="home">الرئيسية</a><a href="#quran" data-i="quran">القرآن الكريم</a><a href="#prayer" data-i="prayer">مواقيت الصلاة</a><a href="#azkar" data-i="azkar">الأذكار</a><a href="#about" data-i="about">من نحن</a></nav>
+</header>
+<div class="hero" id="home"><div class="bism">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><h1 data-i="welcome">أهلاً بك في موقع المسلم</h1><p data-i="tagline">رفيقك في طريق الإيمان — علمٌ نافع وذكرٌ وطمأنينة.</p><p id="dailyVerse" class="muted">﴿ فَاذْكُرُونِي أَذْكُرْكُمْ ﴾ — البقرة: 152</p></div>
+<main>
+<section class="grid">
+ <article class="card"><div class="icon">📖</div><h2 data-i="quran">القرآن الكريم</h2><p class="muted" data-i="quranDesc">تصفّح سور القرآن الكريم واستمع إلى التلاوة.</p><a class="action" style="display:inline-block;text-decoration:none" href="#quran" data-i="explore">استكشف</a></article>
+ <article class="card"><div class="icon">🕌</div><h2 data-i="prayer">مواقيت الصلاة</h2><p class="muted" data-i="prayerDesc">اعرف مواقيت الصلاة حسب المدينة.</p><a class="soft" style="display:inline-block;text-decoration:none" href="#prayer" data-i="viewTimes">عرض المواقيت</a></article>
+ <article class="card"><div class="icon">📿</div><h2 data-i="azkar">الأذكار والأدعية</h2><p class="muted" data-i="azkarDesc">أذكار مختارة تعينك على الذكر والدعاء.</p><a class="soft" style="display:inline-block;text-decoration:none" href="#azkar" data-i="readAzkar">اقرأ الأذكار</a></article>
+</section>
+<section id="quran" class="card"><div class="section-head"><h2 class="section-title" data-i="quran">القرآن الكريم</h2><span class="muted" data-i="quranSource">السور من مصدر القرآن الكريم الرقمي</span></div><div id="surahList"><p data-i="loading">جارٍ تحميل السور...</p></div><hr><div id="reader"><h3 id="surahTitle"></h3><div id="quranText" data-i="chooseSurah">اختر سورة لعرض آياتها.</div></div></section>
+<section id="prayer" class="card"><div class="section-head"><h2 class="section-title" data-i="prayer">مواقيت الصلاة</h2><div><input id="city" value="Tunis" aria-label="City"><button class="action" id="getPrayer" data-i="calculate">اعرض</button></div></div><p class="muted" data-i="cityHint">اكتب اسم مدينتك بالإنجليزية، مثال: Tunis أو Sfax.</p><div id="prayerTimes" class="prayers"></div><p class="muted" id="prayerNote"></p></section>
+<section id="azkar" class="card"><h2 class="section-title" data-i="azkar">الأذكار والأدعية</h2><div class="grid"><div class="prayer"><b data-i="morning">أذكار الصباح</b><p>أصبحنا وأصبح الملك لله، والحمد لله.</p></div><div class="prayer"><b data-i="evening">أذكار المساء</b><p>أمسينا وأمسى الملك لله، والحمد لله.</p></div><div class="prayer"><b data-i="tasbih">التسبيح</b><p id="count">0</p><button class="action" id="tasbih">سبّح</button><button class="soft" id="reset">إعادة</button></div></div><p class="muted" data-i="azkarReminder">هذه أذكار مختصرة؛ يُستحسن الرجوع إلى كتب الأذكار المعتمدة للتفاصيل والأعداد.</p></section>
+<section id="about" class="card"><h2 class="section-title" data-i="about">من نحن</h2><p data-i="aboutText">موقع المسلم مساحة إيمانية رقمية تهدف إلى تسهيل الوصول إلى القرآن الكريم والأذكار ومواقيت الصلاة، ونشر العلم النافع بلغة واضحة وتصميم بسيط.</p><p class="muted" data-i="verify">يرجى التثبت من المسائل الشرعية والرجوع إلى أهل العلم عند الحاجة.</p></section>
+</main>
+<footer>© <span id="year"></span> <span>MOSLIM | موقع المسلم</span><br><small data-i="footer">رفيقك في طريق الإيمان</small></footer>
+<script>
+const T={
+ar:{home:"الرئيسية",quran:"القرآن الكريم",prayer:"مواقيت الصلاة",azkar:"الأذكار والأدعية",about:"من نحن",welcome:"أهلاً بك في موقع المسلم",tagline:"رفيقك في طريق الإيمان — علمٌ نافع وذكرٌ وطمأنينة.",quranDesc:"تصفّح سور القرآن الكريم واستمع إلى التلاوة.",prayerDesc:"اعرف مواقيت الصلاة حسب المدينة.",azkarDesc:"أذكار مختارة تعينك على الذكر والدعاء.",explore:"استكشف",viewTimes:"عرض المواقيت",readAzkar:"اقرأ الأذكار",quranSource:"السور من مصدر القرآن الكريم الرقمي",loading:"جارٍ تحميل السور...",chooseSurah:"اختر سورة لعرض آياتها.",calculate:"اعرض",cityHint:"اكتب اسم مدينتك بالإنجليزية، مثال: Tunis أو Sfax.",morning:"أذكار الصباح",evening:"أذكار المساء",tasbih:"التسبيح",azkarReminder:"هذه أذكار مختصرة؛ يُستحسن الرجوع إلى كتب الأذكار المعتمدة للتفاصيل والأعداد.",aboutText:"موقع المسلم مساحة إيمانية رقمية تهدف إلى تسهيل الوصول إلى القرآن الكريم والأذكار ومواقيت الصلاة، ونشر العلم النافع بلغة واضحة وتصميم بسيط.",verify:"يرجى التثبت من المسائل الشرعية والرجوع إلى أهل العلم عند الحاجة.",footer:"رفيقك في طريق الإيمان",loadError:"تعذّر تحميل السور. تحقق من اتصال الإنترنت وحاول مجدداً.",prayerError:"تعذّر جلب المواقيت. تحقق من اسم المدينة والاتصال بالإنترنت.",timesNote:"المواقيت محسوبة آلياً عبر خدمة خارجية وقد تختلف حسب طريقة الحساب المحلية."},
+fr:{home:"Accueil",quran:"Coran",prayer:"Heures de prière",azkar:"Invocations",about:"À propos",welcome:"Bienvenue sur MOSLIM",tagline:"Votre compagnon sur le chemin de la foi.",quranDesc:"Parcourez les sourates du Coran et découvrez la récitation.",prayerDesc:"Consultez les horaires de prière selon votre ville.",azkarDesc:"Des invocations pour vous accompagner au quotidien.",explore:"Découvrir",viewTimes:"Voir les horaires",readAzkar:"Lire les invocations",quranSource:"Sourates fournies par une source numérique du Coran",loading:"Chargement des sourates...",chooseSurah:"Choisissez une sourate pour afficher ses versets.",calculate:"Afficher",cityHint:"Saisissez votre ville en anglais, par exemple Tunis ou Sfax.",morning:"Invocations du matin",evening:"Invocations du soir",tasbih:"Tasbih",azkarReminder:"Cette sélection est courte. Consultez des ouvrages fiables pour les textes et nombres détaillés.",aboutText:"MOSLIM facilite l’accès au Coran, aux invocations et aux horaires de prière dans une interface simple.",verify:"Pour les questions religieuses, référez-vous à des sources fiables et aux personnes de science.",footer:"Votre compagnon sur le chemin de la foi",loadError:"Impossible de charger les sourates. Vérifiez votre connexion.",prayerError:"Impossible de récupérer les horaires. Vérifiez la ville et la connexion.",timesNote:"Les horaires sont calculés par un service externe et peuvent varier selon la méthode locale."},
+en:{home:"Home",quran:"The Quran",prayer:"Prayer Times",azkar:"Duas & Dhikr",about:"About",welcome:"Welcome to MOSLIM",tagline:"Your companion on the path of faith.",quranDesc:"Browse Quran chapters and explore recitation.",prayerDesc:"Check prayer times for your city.",azkarDesc:"Selected remembrances and supplications.",explore:"Explore",viewTimes:"View times",readAzkar:"Read duas",quranSource:"Chapters provided by a digital Quran source",loading:"Loading chapters...",chooseSurah:"Choose a chapter to display its verses.",calculate:"Show",cityHint:"Enter your city in English, for example Tunis or Sfax.",morning:"Morning remembrance",evening:"Evening remembrance",tasbih:"Tasbih counter",azkarReminder:"This is a short selection. Consult trusted references for complete texts and counts.",aboutText:"MOSLIM is a faith-focused space designed to make the Quran, remembrance and prayer times easier to access.",verify:"For religious questions, consult trusted sources and qualified scholars.",footer:"Your companion on the path of faith",loadError:"Could not load chapters. Check your internet connection.",prayerError:"Could not retrieve prayer times. Check the city and connection.",timesNote:"Times are calculated by an external service and may vary by local calculation method."}
+};
+let lang="ar",count=0;
+function setLang(l){lang=l;document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr";document.querySelectorAll("[data-i]").forEach(e=>{const k=e.dataset.i;if(T[l][k])e.textContent=T[l][k]});document.getElementById("language").value=l}
+document.getElementById("language").addEventListener("change",e=>setLang(e.target.value));
+document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("tasbih").onclick=()=>document.getElementById("count").textContent=++count;
+document.getElementById("reset").onclick=()=>{count=0;document.getElementById("count").textContent=count};
+async function loadSurahs(){const box=document.getElementById("surahList");try{const r=await fetch("https://api.alquran.cloud/v1/surah");if(!r.ok)throw 0;const j=await r.json();box.innerHTML="";j.data.forEach(s=>{const b=document.createElement("button");b.className="surah";b.innerHTML=`<span>${s.number}. ${s.englishName}</span><strong>${s.name}</strong>`;b.onclick=()=>loadSurah(s.number,s.name);box.appendChild(b)})}catch(e){box.textContent=T[lang].loadError}}
+async function loadSurah(n,name){document.getElementById("surahTitle").textContent=name;document.getElementById("quranText").textContent="...";try{const r=await fetch(`https://api.alquran.cloud/v1/surah/${n}`);const j=await r.json();document.getElementById("quranText").textContent=j.data.ayahs.map(a=>a.text+" ۞").join(" ");document.getElementById("reader").scrollIntoView({behavior:"smooth"})}catch(e){document.getElementById("quranText").textContent=T[lang].loadError}}
+async function loadPrayer(){const city=document.getElementById("city").value.trim()||"Tunis";const box=document.getElementById("prayerTimes");box.innerHTML="...";try{const r=await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Tunisia&method=3`);const j=await r.json();if(j.code!==200)throw 0;const p=j.data.timings;const names=[["Fajr","الفجر"],["Dhuhr","الظهر"],["Asr","العصر"],["Maghrib","المغرب"],["Isha","العشاء"]];box.innerHTML=names.map(([k,a])=>`<div class="prayer"><b>${lang==="ar"?a:k}</b>${p[k]}</div>`).join("");document.getElementById("prayerNote").textContent=T[lang].timesNote}catch(e){box.textContent=T[lang].prayerError}}
+document.getElementById("getPrayer").onclick=loadPrayer;
+setLang("ar");loadSurahs();loadPrayer();
+</script>
+</body></html>
