@@ -67,4 +67,42 @@ async function loadPrayer(){const city=document.getElementById("city").value.tri
 document.getElementById("getPrayer").onclick=loadPrayer;
 setLang("ar");loadSurahs();loadPrayer();
 </script>
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPh3WscZj2QGxDBGfqDBJtJsYw_JZ_gxA",
+  authDomain: "al-muslim-28cf7.firebaseapp.com",
+  projectId: "al-muslim-28cf7",
+  storageBucket: "al-muslim-28cf7.firebasestorage.app",
+  messagingSenderId: "673582048508",
+  appId: "1:673582048508:web:b732dbbb07a0e4f7486379"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function loadHomeContent() {
+  try {
+    const snapshot = await getDoc(doc(db, "site_content", "home"));
+
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+
+      if (data.title) {
+        document.querySelector(".hero h1").textContent = data.title;
+      }
+
+      if (data.content) {
+        document.querySelector(".hero p:not(#dailyVerse)").textContent = data.content;
+      }
+    }
+  } catch (error) {
+    console.error("Firebase:", error);
+  }
+}
+
+loadHomeContent();
+ </script>
 </body></html>
